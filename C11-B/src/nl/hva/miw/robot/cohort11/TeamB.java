@@ -7,17 +7,17 @@ import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.TextLCD;
 import lejos.utility.Delay;
 
-public class Marvin {
+public class TeamB {
 	
 	Brick brick;
 	
-	public Marvin() {
+	public TeamB() {
 		super();
 		brick = LocalEV3.get();
 	}
 	
 	public static void main(String[] args) {
-		Marvin marvin = new Marvin();
+		TeamB marvin = new TeamB();
 		marvin.run();
 	}
 	
