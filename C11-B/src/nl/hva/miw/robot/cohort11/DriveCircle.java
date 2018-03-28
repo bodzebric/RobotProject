@@ -22,8 +22,13 @@ public class DriveCircle
         Button.waitForAnyPress();
 
        // create two motor objects to control the motors.
+<<<<<<< HEAD
        UnregulatedMotor motorA = new UnregulatedMotor(MotorPort.B);
        UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.C);
+=======
+       UnregulatedMotor motorA = new UnregulatedMotor(MotorPort.A);
+       UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.B);
+>>>>>>> development
 
        // set motors to different power levels. Adjust to get a circle.
        motorA.setPower(70);
