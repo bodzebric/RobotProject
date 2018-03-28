@@ -58,9 +58,9 @@ public class LineFollower {
 
         private void go() {
                 calibrate(); 			// only calibrate once, at the start.
-                while (findLine()) {	// as long as the sensor detects a line..
+               // (findLine()) {	// as long as the sensor detects a line..
                         followLine();	// follow the line.
-                }
+              //  }
         }
         
         /**
@@ -150,62 +150,57 @@ public class LineFollower {
         private void findInitialLine() {
         		
         		this.isTurning360 = true;
+        		//motorB.resetTachoCount();
         		
-                // Use the "calibrated" variable as your sample source
-                // to call fetchSample() on    		
-                // Turn using turn(), and take samples while its turning   	
         		while(isTurning360) {
             		turn(360, false);
+            		//motorB.getTachoCount();
             		
             		sampleSize = calibrated.sampleSize();
-            	 	float[] sample = new float[sampleSize];
+            	 	
+            		float[] sample = new float[sampleSize];
+            		//float[] degreesTacho = new float[sampleSize];
             		
-            		
-    	            for (int i = 0; i < 100; i++) {
+            		final int iteration_threshold = 1200;
+            		for (int i = 0; i <= iteration_threshold; i++) {
+            			//degreesTacho[i] = motorB.getTachoCount();
     	            	calibrated.fetchSample(sample, 0); 
-    		            System.out.println("N = " + i + " Sample=" + Arrays.toString(sample));
+    		            //System.out.println("N = " + i + " Sample = " + Arrays.toString(sample));
     	            }
             		
-            		isTurning360 = false;
-        			
+            		isTurning360 = false;       			
         		}
 
                 // TODO When finished turning, turn back to the location
                 // 		where was the best reading.
                 //
-                // Hint: see the following methods that your motors support:
+                // 
                 // http://web.suffieldacademy.org/cs/lejos_ev3_api/lejos/robotics/Encoder.html#getTachoCount--
                 // http://web.suffieldacademy.org/cs/lejos_ev3_api/lejos/robotics/Encoder.html#resetTachoCount--
         }
 
-
-        /**
-         * <p>
-         * Moves the robot forward, constantly taking readings from
-         * the color sensor.  When the color sensor shows that the
-         * robot is no longer on the line, stop the motors.
-         * </p>
-         *
-         * <p>
-         * Precondition: The robot is on the line.
-         * </p>
-         *
-         * <p>
-         * Postcondition: The robot has moved forward until it no
-         * longer detected the line.  The motors are stopped.
-         * </p>
-         */
         private void followLine() {
         	
-            	// turn the motors on
-        		motorB.setSpeed(HIGH_MOTOR_SPEED);
-        		motorC.setSpeed(HIGH_MOTOR_SPEED);
-
-                // loop and take samples until they show you're not on the line
+        		sampleSize = calibrated.sampleSize();
+        		float[] sample = new float[sampleSize];
         		
-        		// stop the motors
-                motorB.stop();
-                motorC.stop();
+        		final int iteration_threshold = 1200;
+        		for (int i = 0; i <= iteration_threshold; i++) {
+	            	
+        			calibrated.fetchSample(sample, 0); 
+		            System.out.println("N = " + i + " Sample = " + Arrays.toString(sample));
+		            
+		            while (sample[i] <= 0.10) {
+		        		motorB.setSpeed(HIGH_MOTOR_SPEED);
+		        		motorC.setSpeed(HIGH_MOTOR_SPEED);
+		        		break;
+		            }          
+		            if (sample[i] >= 0.10) {
+		                motorB.stop();
+		                motorC.stop();       	
+		            }
+		            	
+	            }
         }
 
 
