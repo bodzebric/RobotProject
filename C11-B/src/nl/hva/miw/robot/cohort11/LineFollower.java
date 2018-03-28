@@ -22,6 +22,7 @@ public class LineFollower {
         private SampleProvider calibrated; // use this to fetch samples
     	private final static int HIGH_MOTOR_SPEED = 100;
     	private static int sampleSize;
+    	private boolean isTurning360;
 
         public static void main(String[] args) {
                 LineFollower linefollower = new LineFollower(
@@ -62,29 +63,6 @@ public class LineFollower {
                 }
         }
         
-// /*       private static float[] getSample() {
-//            // Initializes the array for holding samples
-//            float[] sample = new float[sampleSize];
-//
-//            // Gets the sample an returns it
-//            sampleProvider.fetchSample(sample, 0);
-//            return sample;
-//        }*/
-        
-//        public static void main(String[] args) {
-//            // Initializes the sensor & sensor mode
-//            colorSensor = new EV3ColorSensor(colorSensorPort);
-//            sampleProvider = colorSensor.getRedMode();
-//            sampleSize = sampleProvider.sampleSize();
-//
-//            // Takes some samples and prints them
-//            for (int i = 0; i < 4; i++) {
-//                float[] sample = getSample();
-//                System.out.println("N=" + i + " Sample=" + Arrays.toString(sample));
-//            }
-//        }    
-
-
         /**
          * <p>
          * Prompts the user to place the robot near the line, then
@@ -102,11 +80,6 @@ public class LineFollower {
                 brick.getTextLCD().drawString("Then press the", 0, 5);
                 brick.getTextLCD().drawString("Enter key", 0, 6);
                 brick.getKey("Enter").waitForPressAndRelease();
-
-                // put the sensor in "red" mode to shine a light and
-                // read back a brightness value
-                // The two numbers are the min and max scaled values
-
 
                 // The boolean determines if the filter "clamps" values out
                 // of range to the minimum and maximum provided.  If set to
@@ -128,13 +101,6 @@ public class LineFollower {
 
 
         /**
-         * <p>
-         * Turns the robot (not the motors) by the specified number
-         * of degrees, changing the relative heading of the robot.
-         * A degrees value of 360 would cause the robot to turn in a
-         * complete circle.
-         * </p>
-         *
          * @param degrees The change in heading for the robot.  Positive values
          *                turn the robot left; negative values turn it right.
          * @param immediateReturn If true, the method returns as soon as the
@@ -142,6 +108,7 @@ public class LineFollower {
          *                        waits until the rotation of the robot has
          *                        completed and the motors have stopped.
          */
+        
         private void turn(int degrees, boolean immediateReturn) {	
         	motorB.setSpeed(HIGH_MOTOR_SPEED);
         	motorC.setSpeed(HIGH_MOTOR_SPEED);
@@ -181,29 +148,30 @@ public class LineFollower {
          * </p>
          */
         private void findInitialLine() {
-        	
         		
-
+        		this.isTurning360 = true;
+        		
                 // Use the "calibrated" variable as your sample source
                 // to call fetchSample() on    		
+                // Turn using turn(), and take samples while its turning   	
+        		while(isTurning360) {
+            		turn(360, false);
+            		
+            		sampleSize = calibrated.sampleSize();
+            	 	float[] sample = new float[sampleSize];
+            		
+            		
+    	            for (int i = 0; i < 100; i++) {
+    	            	calibrated.fetchSample(sample, 0); 
+    		            System.out.println("N = " + i + " Sample=" + Arrays.toString(sample));
+    	            }
+            		
+            		isTurning360 = false;
+        			
+        		}
 
-                // Turn using turn(), and take samples while its turning
-        		//turn(360, false);
-        		sampleSize = calibrated.sampleSize();
-        	 	float[] sample = new float[sampleSize];
-        		calibrated.fetchSample(sample, 0);  
-        		
-        		
-	            for (int i = 0; i < 10; i++) {
-	              System.out.println("N=" + i + " Sample=" + Arrays.toString(sample));
-	          	}
-        		
-        		//System.out.println("sample " + Arrays.toString(sample));
-        		
-        		//turn(-30, true);
-
-                // When you've finished turning, turn back to the location
-                // where you saw the best reading.
+                // TODO When finished turning, turn back to the location
+                // 		where was the best reading.
                 //
                 // Hint: see the following methods that your motors support:
                 // http://web.suffieldacademy.org/cs/lejos_ev3_api/lejos/robotics/Encoder.html#getTachoCount--
@@ -228,14 +196,16 @@ public class LineFollower {
          * </p>
          */
         private void followLine() {
-                // You will need to complete this method to have the robot
-                // move forward and attempt to follow the line
-
-                // turn the motors on
+        	
+            	// turn the motors on
+        		motorB.setSpeed(HIGH_MOTOR_SPEED);
+        		motorC.setSpeed(HIGH_MOTOR_SPEED);
 
                 // loop and take samples until they show you're not on the line
-
-                // stop the motors
+        		
+        		// stop the motors
+                motorB.stop();
+                motorC.stop();
         }
 
 
