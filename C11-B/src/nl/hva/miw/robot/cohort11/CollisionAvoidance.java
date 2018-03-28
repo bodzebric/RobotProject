@@ -65,5 +65,18 @@ public class CollisionAvoidance {
 				infraRed.close();
 			}
 		}
+		
+
+//		while (distanceValue > 10) {
+//			motorB.setSpeed(DEFAULT_MOTOR_SPEED);
+//			motorC.setSpeed(DEFAULT_MOTOR_SPEED);
+//			motorB.forward();
+//			motorC.forward();
+//
+//			if (distanceValue < 10) {
+//				motorB.stop();
+//				motorC.stop();
+//			}
+//		}
 	}
 }
