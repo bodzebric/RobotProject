@@ -3,14 +3,18 @@ package nl.hva.miw.robot.cohort11;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.motor.Motor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
-import lejos.hardware.sensor.SensorMode;
+
 import lejos.robotics.SampleProvider;
-import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
+
+
+/**
+ * 
+ * @author Ashley
+ *
+ */
 
 public class CollisionAvoidance {
 	public static void main(String[] args) {
@@ -34,7 +38,7 @@ public class CollisionAvoidance {
 		rangeSampler = infraRed.getDistanceMode();
 		int distanceValue = 0;
 
-		final int iteration_threshold = 100;
+		final int iteration_threshold = 2000;
 		for (int i = 0; i <= iteration_threshold; i++) {
 
 			lastRange = new float[rangeSampler.sampleSize()];
@@ -42,58 +46,24 @@ public class CollisionAvoidance {
 			distanceValue = (int) lastRange[0];
 
 			System.out.println("Afstand in cm: " + distanceValue);
-		}
-
-		while (distanceValue > 10) {
-			motorB.setSpeed(DEFAULT_MOTOR_SPEED);
-			motorC.setSpeed(DEFAULT_MOTOR_SPEED);
-			motorB.forward();
-			motorC.forward();
-
-			if (distanceValue < 10) {
+			
+			if (distanceValue > 15) {
+				motorB.setSpeed(DEFAULT_MOTOR_SPEED);
+				motorC.setSpeed(DEFAULT_MOTOR_SPEED);
+				motorB.forward();
+				motorC.forward();
+				
+			}if (distanceValue <= 15) {
+				motorB.rotate(NINETY_DEGREES);
+				motorC.rotate(NINETY_DEGREES);
+				
+			}if (distanceValue < 4 || Button.ESCAPE.isUp() ) {
 				motorB.stop();
 				motorC.stop();
+				motorB.close();
+				motorC.close();
+				infraRed.close();
 			}
 		}
 	}
 }
-
-// if(distanceValue <= 10){
-// motorB.rotate(NINETY_DEGREES);
-// motorC.rotate(NINETY_DEGREES);
-// }if(rangeSampler <= 3){
-// motorB.stop();
-// motorC.stop();
-// motorB.close();
-// motorC.close();
-// }else {
-// motorB.forward();
-// motorC.forward();
-// }
-// }
-// Sound.beepSequence(); // we are done.
-//
-// }
-//
-// }
-
-// private static void configureInfraredSensor(final EV3IRSensor infraredSensor,
-// final DifferentialPilot pilot) {
-// final RangeFinderAdaptor rangeFinderAdaptor = new
-// RangeFinderAdaptor(infraredSensor.getDistanceMode());
-// final RangeFeatureDetector rangeFeatureDetector = new
-// RangeFeatureDetector(rangeFinderAdaptor, MAX_DISTANCE, INTERVAL);
-// final FeatureListener detectedObjectListener = new
-// DetectedObjectListener(pilot);
-// rangeFeatureDetector.addListener(detectedObjectListener);
-// }
-//
-
-// Instantiate a RangeFinderAdaptor-object and tell it in which mode the sensor
-// is used
-// Instantiate a RangeFeatureDetector-object and tell it: the interval of
-// checking the object's distance and the maximum distance of objects. It also
-// needs the (prior to this step) created RangeFinderAdaptor-object.
-// Instantiate an object of the class which implements the FeatureListener
-// Add the instantiated listener from step 3 to the RangeFeatureDetector-object
-// from step 2.
