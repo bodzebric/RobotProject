@@ -20,7 +20,6 @@ public class LineFollower {
         private EV3ColorSensor colorSensor;
         /** The calibrated output from the color sensor */
         private SampleProvider calibrated; // use this to fetch samples
-//    	private final static int DEFAULT_MOTOR_SPEED = 50;
     	private final static int HIGH_MOTOR_SPEED = 100;
     	private static int sampleSize;
 
@@ -189,12 +188,17 @@ public class LineFollower {
                 // to call fetchSample() on    		
 
                 // Turn using turn(), and take samples while its turning
-        		turn(360, false);
+        		//turn(360, false);
         		sampleSize = calibrated.sampleSize();
         	 	float[] sample = new float[sampleSize];
         		calibrated.fetchSample(sample, 0);  
         		
-        		System.out.println("sample " + Arrays.toString(sample));
+        		
+	            for (int i = 0; i < 10; i++) {
+	              System.out.println("N=" + i + " Sample=" + Arrays.toString(sample));
+	          	}
+        		
+        		//System.out.println("sample " + Arrays.toString(sample));
         		
         		//turn(-30, true);
 

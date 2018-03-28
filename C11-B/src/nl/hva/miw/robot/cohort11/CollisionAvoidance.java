@@ -34,7 +34,7 @@ public class CollisionAvoidance {
 		rangeSampler = infraRed.getDistanceMode();
 		int distanceValue = 0;
 
-		final int iteration_threshold = 100;
+		final int iteration_threshold = 2000;
 		for (int i = 0; i <= iteration_threshold; i++) {
 
 			lastRange = new float[rangeSampler.sampleSize()];
@@ -42,19 +42,32 @@ public class CollisionAvoidance {
 			distanceValue = (int) lastRange[0];
 
 			System.out.println("Afstand in cm: " + distanceValue);
-		}
-
-		while (distanceValue > 10) {
-			motorB.setSpeed(DEFAULT_MOTOR_SPEED);
-			motorC.setSpeed(DEFAULT_MOTOR_SPEED);
-			motorB.forward();
-			motorC.forward();
+			
+			if (distanceValue > 10) {
+				motorB.setSpeed(DEFAULT_MOTOR_SPEED);
+				motorC.setSpeed(DEFAULT_MOTOR_SPEED);
+				motorB.forward();
+				motorC.forward();
+			} 
 
 			if (distanceValue < 10) {
 				motorB.stop();
 				motorC.stop();
 			}
 		}
+		
+
+//		while (distanceValue > 10) {
+//			motorB.setSpeed(DEFAULT_MOTOR_SPEED);
+//			motorC.setSpeed(DEFAULT_MOTOR_SPEED);
+//			motorB.forward();
+//			motorC.forward();
+//
+//			if (distanceValue < 10) {
+//				motorB.stop();
+//				motorC.stop();
+//			}
+//		}
 	}
 }
 
