@@ -9,7 +9,6 @@ import lejos.hardware.sensor.EV3IRSensor;
 
 import lejos.robotics.SampleProvider;
 
-
 /**
  * 
  * @author Ashley
