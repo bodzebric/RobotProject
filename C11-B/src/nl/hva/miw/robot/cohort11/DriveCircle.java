@@ -28,18 +28,18 @@ public class DriveCircle
 
 
        // set motors to different power levels. Adjust to get a circle.
-       motorA.setPower(70);
+       motorC.setPower(70);
        motorB.setPower(30);
 
        // wait doing nothing for touch sensor to stop driving.
        while (!touchSensor.isTouched()) {}
 
        // stop motors with brakes on.
-       motorA.stop();
+       motorC.stop();
        motorB.stop();
 
        // free up resources.
-       motorA.close();
+       motorC.close();
        motorB.close();
        touchSensor.close();
 
