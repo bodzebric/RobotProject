@@ -53,62 +53,62 @@ public class Drivable {
 		setSpeed(2);
 		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
 
-		Sound.beepSequenceUp();
-		Sound.beepSequenceUp();
-		System.out.println("Forward left and right");
-		setSpeed(3);
-		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(4);
-		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(5);
-		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		
-		Sound.beepSequenceUp();
-		setSpeed(6);
-		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(7);
-		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(8);
-		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		
-		Sound.beepSequenceUp();
-		Sound.beepSequenceUp();
-		System.out.println("Backward left and right");
-		setSpeed(3);
-		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(4);
-		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(5);
-		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		
-		Sound.beepSequenceUp();
-		setSpeed(6);
-		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(7);
-		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(8);
-		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-
-		
-		setSpeed(0);
-		setSpeed(9); // Hoek 90 graden motor C
-		Sound.beepSequenceUp();
-		Sound.beepSequenceUp();
-		System.out.println("Left angle and right angle");
-		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
-		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
-		
-		setSpeed(0);
-		setSpeed(10); // Hoek 90 graden motor B 
-		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
-		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
-
-		
-		Sound.beepSequenceUp();
-		Sound.beepSequenceUp();
-		System.out.println("Pirouette left and right");
-		drivePirouetteLeft(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
-		drivePirouetteRight(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		Sound.beepSequenceUp();
+//		Sound.beepSequenceUp();
+//		System.out.println("Forward left and right");
+//		setSpeed(3);
+//		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(4);
+//		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(5);
+//		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		
+//		Sound.beepSequenceUp();
+//		setSpeed(6);
+//		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(7);
+//		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(8);
+//		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		
+//		Sound.beepSequenceUp();
+//		Sound.beepSequenceUp();
+//		System.out.println("Backward left and right");
+//		setSpeed(3);
+//		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(4);
+//		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(5);
+//		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		
+//		Sound.beepSequenceUp();
+//		setSpeed(6);
+//		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(7);
+//		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		setSpeed(8);
+//		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//
+//		
+//		setSpeed(0);
+//		setSpeed(9); // Hoek 90 graden vooruit
+//		Sound.beepSequenceUp();
+//		Sound.beepSequenceUp();
+//		System.out.println("Left angle and right angle");
+//		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
+//		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
+//		
+//		setSpeed(0);
+//		setSpeed(10); // Hoek 90 graden achteruit
+//		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
+//		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
+//
+//		
+//		Sound.beepSequenceUp();
+//		Sound.beepSequenceUp();
+//		System.out.println("Pirouette left and right");
+//		drivePirouetteLeft(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+//		drivePirouetteRight(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
 
 		// Stoppen van de motoren
 		motorB.stop(true);
