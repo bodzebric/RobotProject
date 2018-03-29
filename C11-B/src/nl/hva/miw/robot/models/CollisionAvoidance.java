@@ -1,4 +1,4 @@
-package nl.hva.miw.robot.cohort11;
+package nl.hva.miw.robot.models;
 
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
