@@ -1,4 +1,4 @@
-package nl.hva.miw.robot.cohort11;
+package nl.hva.miw.robot.models;
 
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
@@ -6,7 +6,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
-
+import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.SampleProvider;
 
 /**
@@ -14,18 +14,15 @@ import lejos.robotics.SampleProvider;
  * @author Ashley
  *
  */
-
-public class CollisionAvoidance {
+public class BeaconFollower {
 	public static void main(String[] args) {
 		EV3IRSensor infraRed = new EV3IRSensor(SensorPort.S2); // tijdelijk op port 2
 		EV3LargeRegulatedMotor motorB = new EV3LargeRegulatedMotor(MotorPort.B);
 		EV3LargeRegulatedMotor motorC = new EV3LargeRegulatedMotor(MotorPort.C);
-		final int ONE_EIGHTY_DEGREES = 180;
-		final int DEFAULT_MOTOR_SPEED = 100;
+		SensorMode seekMode = infraRed.getSeekMode();
 		SampleProvider rangeSampler;
-		float[] lastRange;
-
-		System.out.println("Drive and Avoid\n");
+        
+		System.out.println("Follow the Beacon\n");
 		System.out.println("Press any key to start");
 
 		Button.LEDPattern(4); // flash green led and
@@ -33,41 +30,49 @@ public class CollisionAvoidance {
 
 		Button.waitForAnyPress();
 
-		// initialiseren van de infrared sensor
+		// set infrared to beacon mode. is dat getRemoteCommand(9) of een andere functie.
+		// 9 is beacon mode
+		// This feature allows a robot to follow a moving beacon or find its distance
+		// and heading relative to a fixed beacon.
+		// Returns heading (angle) and distance to beacon. Heading measurement is not in degrees.
+
+		infraRed.getRemoteCommand(9);
+		System.out.println("Connectie met beacon");
+//		infraRed.getSeekMode();
+
 		rangeSampler = infraRed.getDistanceMode();
 		int distanceValue = 0;
 
 		final int iteration_threshold = 2000;
 		for (int i = 0; i <= iteration_threshold; i++) {
 
-			lastRange = new float[rangeSampler.sampleSize()];
-			rangeSampler.fetchSample(lastRange, 0);
-			distanceValue = (int) lastRange[0];
+			float[] samples = new float[seekMode.sampleSize()];
+			seekMode.fetchSample(samples, 0);
+			distanceValue = (int) samples[0];
 
 			System.out.println("Afstand in cm: " + distanceValue);
-		
-		//rijden totdat er een obstakel gevonden wordt en dan draaien
-			while (distanceValue > 15) {
-			motorB.setSpeed(DEFAULT_MOTOR_SPEED);
-			motorC.setSpeed(DEFAULT_MOTOR_SPEED);
-			motorB.forward();
-			motorC.forward();
-//			rangeSampler = infraRed.getDistanceMode();
-//			distanceValue = (int) lastRange[0];
-//			}
+
+			while (distanceValue < 25 && distanceValue > 15) {
+//				infraRed.getSeekMode();
+				motorB.setSpeed(150);
+				motorC.setSpeed(150);
+				motorB.forward();
+				motorC.forward();
+				break;
+			}
 			if (distanceValue < 15 && distanceValue > 4) {
-				motorB.rotate(ONE_EIGHTY_DEGREES);
-				motorC.rotate(-ONE_EIGHTY_DEGREES);
-		
-		//als afstand kleiner is dan 4 centimeter, dan afsluiten
-			}if (distanceValue < 4 || Button.ESCAPE.isDown() ) {
-				motorB.stop();
-				motorC.stop();
+				motorB.stop(true);
+				motorC.stop(true);
+			}
+
+			if (distanceValue < 4 || Button.ESCAPE.isDown()) {
+				motorB.stop(true);
+				motorC.stop(true);
 				motorB.close();
 				motorC.close();
 				infraRed.close();
-				}
 			}
+
 		}
 	}
 }
