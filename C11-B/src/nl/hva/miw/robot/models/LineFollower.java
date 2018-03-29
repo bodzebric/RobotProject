@@ -207,31 +207,54 @@ public class LineFollower {
         
         private boolean findLine() {
         	
-	        	float lightValue = -1;	
+	        	float lightValue = 1;	
 	        	isLineFound = false;
 				lastSample = new float[calibrated.sampleSize()];
-	    		
-        		final int iteration_threshold = 1200;
-         		for (int i = 0; i <= iteration_threshold; i++) {
-	            	
-					calibrated.fetchSample(lastSample, 0);
-					lightValue = (float) lastSample[0];
-					
-					System.out.println("FindLine Light intensity :" + lightValue);
-		            
-		            if (lightValue > 0.0) {
-		            	turn(-15, true);   // search 15 degrees left
-		            	turn(30, true);   // search 15 degrees right
-		            	turn(-45, true);  // search 30 degrees left
-		            	turn(75, true);   // search 30 degrees right
-		            	turn(-120, true); // search 45 degrees left
-		            	turn(195, true);  // search 45 degrees right
-		            	turn(-315, true); // search 60 degrees left
-		            	turn(510, true);  // search 60 degrees right
+	    				            
+				if (lightValue > 0.0) {
+		            	
+		            	final int iteration_threshold = 1200;
+		         		for (int i = 0; i <= iteration_threshold; i++) {
+		         			
+			            	turn(-15, true);   						// turn 15 degrees left
+			            	
+							calibrated.fetchSample(lastSample, 0);
+							lightValue = (float) lastSample[0];
+							
+							if (lightValue > 0.0) {
+								turn(30, true); 					// search 15 degrees right
+							}
+							
+							if (lightValue > 0.0) {
+								turn(-45, true); 					// search 30 degrees left
+							}
+							
+							if (lightValue > 0.0) {
+								turn(75, true); 					// search 30 degrees right
+							}
+							
+							if (lightValue > 0.0) {
+								turn(-120, true); 					// search 45 degrees left
+							}
+							
+							if (lightValue > 0.0) {
+								turn(195, true); 					// search 45 degrees right
+							}
+							
+							if (lightValue > 0.0) {
+								turn(-315, true); 					// search 60 degrees left
+							}
+							
+							if (lightValue > 0.0) {
+								turn(510, true); 					// search 60 degrees right
+							}
+							
+				            if (lightValue == 0.0) {
+				            	isLineFound = true;
+				            }	
+		            	  
 		            }          
-		            if (lightValue == 0.0) {
-		            	isLineFound = true;
-		            }		            	
+	            	
 	            }
 	    		return isLineFound;
         }
