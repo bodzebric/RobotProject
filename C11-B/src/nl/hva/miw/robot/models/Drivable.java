@@ -110,6 +110,27 @@ public class Drivable {
 //		drivePirouetteLeft(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
 //		drivePirouetteRight(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
 
+		
+		setSpeed(0);
+		setSpeed(9); // Hoek 90 graden vooruit
+		Sound.beepSequenceUp();
+		Sound.beepSequenceUp();
+		System.out.println("Left angle and right angle");
+		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
+		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
+		
+		setSpeed(0);
+		setSpeed(10); // Hoek 90 graden achteruit
+		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
+		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
+
+		
+		Sound.beepSequenceUp();
+		Sound.beepSequenceUp();
+		System.out.println("Pirouette left and right");
+		drivePirouetteLeft(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		drivePirouetteRight(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+
 		// Stoppen van de motoren
 		motorB.stop(true);
 		motorC.stop(true);
