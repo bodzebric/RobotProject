@@ -8,22 +8,22 @@ import lejos.hardware.port.*;
 import lejos.robotics.RegulatedMotor;
 
 public class Drivable {
-	int speedStyle;
-	int speedB;
-	int speedC;
-	int accelerationB;
-	int accelerationC;
-
+	int speedStyle; // De voorgemaakte stijlen waar snelheden en richtingen van de motoren al bepaald zijn
+	int speedB; // Om motor B zijn snelheid in te stellen
+	int speedC; // Om motor C zijn snelheid in te stellen
+	int accelerationB; // Motor B zijn acceleratie in te stellen, default acceleration is 6000
+	int accelerationC; // Motor C zijn acceleratie in te stellen, default acceleration is 6000
+	int driveTime; // Standaard tijd voor een beweging in milliseconden
+	int leftAngle; // Waar dus standaard graden maal ~12.0 voor 360 graden (Bijvoorbeeld 540 is ~45 graden)
+	int rightAngle; // Waar dus standaard graden maal ~11.9 voor 360 graden (Bijvoorbeeld 530 is ~45 graden)
+	
 	public static void main(String[] args) {
 		Drivable RobotTeamB = new Drivable();
 		RobotTeamB.tester();
 	}
 
 	public void tester() {
-		final int STANDARD_DRIVE_TIME = 4000; // Standard time for a move in milliseconds
-		final int STANDARD_LEFT_ANGLE = 540; // Dit is 45 graden (maal 12 voor 360 graden)
-		final int STANDARD_RIGHT_ANGLE = 530; // Dit is 45 graden (maal ~11.9 voor 360 graden)
-
+		
 		// Creation of the motors
 		RegulatedMotor motorB = new EV3LargeRegulatedMotor(MotorPort.B);
 		RegulatedMotor motorC = new EV3LargeRegulatedMotor(MotorPort.C);
@@ -36,39 +36,79 @@ public class Drivable {
 
 		// Collection of actions to test Drivable
 		Sound.beepSequenceUp();
+		Sound.beepSequenceUp();
 		System.out.println("Foward and backward");
-		setSpeed(3);
-		driveForward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(4);
-		driveForward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(5);
-		driveForward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(5);
-		driveBackward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(0);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(1);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(2);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		
+		Sound.beepSequenceUp();
+		setSpeed(0);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(1);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(2);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
 
+		Sound.beepSequenceUp();
 		Sound.beepSequenceUp();
 		System.out.println("Forward left and right");
-		setSpeed(0);
-		driveForward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(1);
-		driveForward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
-
+		setSpeed(3);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(4);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(5);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		
+		Sound.beepSequenceUp();
+		setSpeed(6);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(7);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(8);
+		driveForward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		
+		Sound.beepSequenceUp();
 		Sound.beepSequenceUp();
 		System.out.println("Backward left and right");
-		setSpeed(0);
-		driveBackward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
-		setSpeed(1);
-		driveBackward(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(3);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(4);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(5);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		
+		Sound.beepSequenceUp();
+		setSpeed(6);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(7);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		setSpeed(8);
+		driveBackward(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
 
+		
+		setSpeed(0);
+		setSpeed(9); // Hoek 90 graden motor C
+		Sound.beepSequenceUp();
 		Sound.beepSequenceUp();
 		System.out.println("Left angle and right angle");
-		driveLeftAngle(motorC, speedC, accelerationC, STANDARD_LEFT_ANGLE);
-		driveRightAngle(motorB, speedB, accelerationB, STANDARD_RIGHT_ANGLE);
-			
+		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
+		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
+		
+		setSpeed(0);
+		setSpeed(10); // Hoek 90 graden motor B 
+		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
+		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
+
+		
+		Sound.beepSequenceUp();
 		Sound.beepSequenceUp();
 		System.out.println("Pirouette left and right");
-		drivePirouetteLeft(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
-		drivePirouetteRight(motorB, motorC, STANDARD_DRIVE_TIME, speedB, speedC, accelerationB, accelerationC);
+		drivePirouetteLeft(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
+		drivePirouetteRight(motorB, motorC, driveTime, speedB, speedC, accelerationB, accelerationC);
 
 		// Stoppen van de motoren
 		motorB.stop(true);
@@ -81,47 +121,105 @@ public class Drivable {
 
 	public void setSpeed(int speedStyle) {
 		switch (speedStyle) {
-		// Flauwe bocht links
-		// Default acceleration is 6000
-		case 0:
-			speedB = 50;
-			speedC = 100;
-			accelerationB = 8000;
-			accelerationC = 8000;
+
+		// Linksaf of Rechtsaf 90 graden achteruit
+		case 10:
+			leftAngle = -1060;
+			rightAngle = -1080;
 			break;
-		// Flauwe bocht rechts
-		case 1:
+		// Linksaf of Rechtsaf 90 graden vooruit
+		case 9:
+			leftAngle = 1060;
+			rightAngle = 1080;
+			break;			
+		
+			// Flauwe bocht links
+		case 8:
 			speedB = 100;
 			speedC = 50;
 			accelerationB = 8000;
 			accelerationC = 8000;
+			driveTime = 3000;
+			break;		
+		// Normale bocht rechts
+		case 7:
+			speedB = 100;
+			speedC = 50;
+			accelerationB = 8000;
+			accelerationC = 8000;
+			driveTime = 3000;
 			break;
+		// Scherpe bocht rechts
+		case 6:
+			speedB = 100;
+			speedC = 25;
+			accelerationB = 8000;
+			accelerationC = 8000;
+			driveTime = 3000;
+			break;
+
+		// Flauwe bocht links
+		case 5:
+			speedB = 75;
+			speedC = 100;
+			accelerationB = 8000;
+			accelerationC = 8000;
+			driveTime = 3000;
+			break;			
+		// Normale bocht links
+		case 4:
+			speedB = 50;
+			speedC = 100;
+			accelerationB = 8000;
+			accelerationC = 8000;
+			driveTime = 3000;
+			break;
+		// Scherpe bocht links
+		case 3:
+			speedB = 25;
+			speedC = 100;
+			accelerationB = 8000;
+			accelerationC = 8000;
+			driveTime = 3000;
+			break;
+			
 		// Snelheid langzaam
 		case 2:
 			speedB = 50;
 			speedC = 50;
 			accelerationB = 8000;
 			accelerationC = 8000;
+			driveTime = 3000;
+			driveTime = 3000;
+			leftAngle = 530;
+			rightAngle = 540;
 			break;
 		// Snelheid medium
-		case 3:
+		case 1:
 			speedB = 75;
 			speedC = 75;
 			accelerationB = 8000;
 			accelerationC = 8000;
+			driveTime = 3000;
+			driveTime = 3000;
+			leftAngle = 530;
+			rightAngle = 540;
 			break;
-		// Snelheid hard , default snelheid
-		case 5:
+		// Snelheid hard, default snelheid
+		case 0:
 		default:
 			speedB = 100;
 			speedC = 100;
 			accelerationB = 12000;
 			accelerationC = 12000;
+			driveTime = 3000;
+			leftAngle = 530; // ~45 graden
+			rightAngle = 540; // ~45 graden
 			break;
 		}
 	}
 
-	public void driveForward(RegulatedMotor motorB, RegulatedMotor motorC, int movementTime,
+	public void driveForward(RegulatedMotor motorB, RegulatedMotor motorC, int driveTime,
 			int speedB, int speedC, int accelerationB, int accelerationC) {
 		motorB.setAcceleration(accelerationB);
 		motorC.setAcceleration(accelerationC);
@@ -133,10 +231,12 @@ public class Drivable {
 		motorC.forward();
 		motorB.endSynchronization();
 
-		drivemovementTimer(movementTime);
+		driveTimer(driveTime);
+		motorB.stop(true);
+		motorC.stop(true);
 	}
 
-	public void driveBackward(RegulatedMotor motorB, RegulatedMotor motorC, int movementTime, 
+	public void driveBackward(RegulatedMotor motorB, RegulatedMotor motorC, int driveTime, 
 			int speedB, int speedC, int accelerationB, int accelerationC) {
 		motorB.setAcceleration(accelerationB);
 		motorC.setAcceleration(accelerationC);
@@ -148,7 +248,9 @@ public class Drivable {
 		motorC.backward();
 		motorB.endSynchronization();
 
-		drivemovementTimer(movementTime);
+		driveTimer(driveTime);
+		motorB.stop(true);
+		motorC.stop(true);		
 	}
 
 	public static void driveLeftAngle(RegulatedMotor motorC, int speedC, int accelerationC, int angle) {
@@ -157,7 +259,7 @@ public class Drivable {
 
 		motorC.rotate(angle);
 	}
-
+	
 	public static void driveRightAngle(RegulatedMotor motorB, int speedB, int accelerationB, int angle) {
 		motorB.setAcceleration(accelerationB);
 		motorB.setSpeed(speedB);
@@ -165,7 +267,7 @@ public class Drivable {
 		motorB.rotate(angle);
 	}
 	
-	public static void drivePirouetteLeft(RegulatedMotor motorB, RegulatedMotor motorC, int movementTime,
+	public static void drivePirouetteLeft(RegulatedMotor motorB, RegulatedMotor motorC, int driveTime,
 			int speedB, int speedC, int accelerationB, int accelerationC) {
 		motorB.setAcceleration(accelerationB);
 		motorC.setAcceleration(accelerationC);
@@ -177,10 +279,12 @@ public class Drivable {
 		motorC.forward();
 		motorB.endSynchronization();
 		
-		drivemovementTimer(movementTime);
+		driveTimer(driveTime);
+		motorB.stop(true);
+		motorC.stop(true);
 	}
 	
-	public static void drivePirouetteRight(RegulatedMotor motorB, RegulatedMotor motorC, int movementTime, 
+	public static void drivePirouetteRight(RegulatedMotor motorB, RegulatedMotor motorC, int driveTime, 
 			int speedB, int speedC, int accelerationB, int accelerationC) {
 		motorB.setAcceleration(accelerationB);
 		motorC.setAcceleration(accelerationC);
@@ -192,13 +296,15 @@ public class Drivable {
 		motorC.backward();
 		motorB.endSynchronization();
 	
-		drivemovementTimer(movementTime);
+		driveTimer(driveTime);
+		motorB.stop(true);
+		motorC.stop(true);
 	}
 
-	public static void drivemovementTimer(int movementTime) {
+	public static void driveTimer(int driveTime) {
 		try {
 			// Moves forward in milliseconds
-			Thread.sleep(movementTime);
+			Thread.sleep(driveTime);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
