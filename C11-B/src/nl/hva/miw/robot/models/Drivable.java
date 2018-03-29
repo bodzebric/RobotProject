@@ -91,7 +91,7 @@ public class Drivable {
 
 		
 		setSpeed(0);
-		setSpeed(9); // Hoek 90 graden motor C
+		setSpeed(9); // Hoek 90 graden vooruit
 		Sound.beepSequenceUp();
 		Sound.beepSequenceUp();
 		System.out.println("Left angle and right angle");
@@ -99,7 +99,7 @@ public class Drivable {
 		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
 		
 		setSpeed(0);
-		setSpeed(10); // Hoek 90 graden motor B 
+		setSpeed(10); // Hoek 90 graden achteruit
 		driveLeftAngle(motorC, speedC, accelerationC, leftAngle);
 		driveRightAngle(motorB, speedB, accelerationB, rightAngle);
 
